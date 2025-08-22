@@ -4,6 +4,7 @@
 #include <float.h>
 int squaresolver(double a, double b, double c,
            double *x1, double *x2);
+double linesolver(double a, double b);
 
 
 int rootisnull(double *x1, double *x2);
@@ -14,28 +15,28 @@ int inaccuracy(double a, double b);
 
 int main()
 {
-    printf("Введите коэффициенты a, b, c\n");
-    int prov = -2;
-    double a, b, c  , x1 , x2;
-    a = b = c = x1 = x2 = NAN;
+        printf("Введите коэффициенты a, b, c\n");
+        int prov = -2;
+        double a, b, c  , x1 , x2;
+        a = b = c = x1 = x2 = NAN;
 
     while(scanf("%lg %lg %lg", &a, &b, &c)!=3)
-    {
+    {   while(getchar() != '\n'){}
         printf("Попробуйте ещё раз, пожалуйста\n");
-        scanf("%lg %lg %lg", &a, &b, &c);
     }
     prov = squaresolver(a, b, c, &x1, &x2);
     rootisnull(&x1, &x2);
     switch (prov)
     {
-        case -1: printf("Выражение не зависит от x"); break;
-        case  0: printf("Действительных корней нет"); break;
-        case  1: printf("Имеется только один корень x = %lg", x1); break;
-        case  2: printf("Имеется 2 корня x1 = %lg  второй корень %lg", x1, x2); break;
-        case  3: printf("У данного уравнения бесконечно много корней");break;
-        default: printf("Ты молодец");
+        case -1: printf("Выражение не зависит от x\n"); break;
+        case  0: printf("Действительных корней нет\n"); break;
+        case  1: printf("Имеется только один корень: x = %lg\n", x1); break;
+        case  2: printf("Имеется 2 корня: x1 = %lg, второй корень %lg\n", x1, x2); break;
+        case  3: printf("У данного уравнения бесконечно много корней\n");break;
+        default: printf("Что-то пошло не так\n");
 
     }
+    printf("Спасибо за использование\n");
     return 0;
 }
 
@@ -47,7 +48,7 @@ int inaccuracy(double a, double b)
 }
 
 
-int rootisnull(double *x1, double *x2)   // TODO: Поменять название
+int rootisnull(double *x1, double *x2)
 {
     (inaccuracy(*x1, 0)) ? *x1 = 0: *x1 = * x1;
     (inaccuracy(*x2, 0)) ? *x2 = 0: *x2 = *x2;
@@ -75,7 +76,7 @@ int squaresolver(double a, double b, double c,
         else
         {
             assert(x1 != NULL);
-            *x1 = -c/b; /*Линейное уравнение*/
+            *x1 = linesolver(b, c); /*Линейное уравнение*/
             return 1;
         }
     }
@@ -88,7 +89,7 @@ int squaresolver(double a, double b, double c,
         }
         else if (inaccuracy(diskr, 0))
         {
-            *x1 = -b / (2 * a); /*Действительных корней нет*/
+            *x1 = -b / (2 * a);
             return 1;
         }
         else
@@ -102,4 +103,9 @@ int squaresolver(double a, double b, double c,
             return 2;
         }
     }
+}
+
+double linesolver(double a, double b)
+{
+    return (-b/a);
 }
