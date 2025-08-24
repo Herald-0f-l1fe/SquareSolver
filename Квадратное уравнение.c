@@ -22,7 +22,7 @@ struct test_koefficients
 };
 struct test_koefficients tests[] =
     {
-    {0, 0, 0, inf_roots, NAN, NAN}, 
+    {0, 0, 0, inf_roots, NAN, NAN},
     {1, 2, 1, one_root, -1, -1},
     {1, 3, 2, two_roots, -2, -1},
     {0, 1, 1, one_root, -1, -1},
@@ -50,9 +50,9 @@ int double_compare(double a, double b);
 
 void inpuut(double* a, double *b, double *c);
 
-int unit_test(struct test_koefficients tests[], double* x1, double*x2);
+int unit_test(double* x1, double*x2);
 
-int one_test(double a, double b, double c, double *x1, double *x2, enum nRoots roots, double x1ref, double x2ref);
+int one_test(double *x1, double *x2, struct test_koefficients Ref);
 
 void outpuut(enum nRoots* roots, double* x1, double* x2);
 
@@ -62,7 +62,7 @@ int main()
 
     nRoots roots = none;
     double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN;
-    int passed_tests = unit_test(tests, &x1, &x2);
+    int passed_tests = unit_test(&x1, &x2);
     printf("%d\n", passed_tests);
     x1 = NAN;
     x2 = NAN;
@@ -212,12 +212,13 @@ enum nRoots solver(double a, double b, double c,
     return roots;
 }
 
-int one_test(double a, double b, double c, double* x1, double *x2, enum nRoots rootref, double x1ref, double x2ref)
+int one_test(double* x1, double *x2, struct test_koefficients Ref)
 {
-    enum nRoots root = solver(a, b, c, x1, x2);
+    enum nRoots root = solver(Ref.a, Ref.b, Ref.c, x1, x2);
+    enum nRoots rootref = Ref.roots;
     if (root != rootref)
     {
-        printf ("Failed: solver(%lg, %lg, %lg) gives x1 = %lg, x2 = %lg, should be x1 = %lg, x2 = %lg\n", a, b, c, *x1, *x2, x1ref, x2ref);
+        printf ("Failed: solver(%lg, %lg, %lg) gives x1 = %lg, x2 = %lg, should be x1 = %lg, x2 = %lg\n", Ref.a, Ref.b, Ref.c, *x1, *x2, Ref.x1_ref, Ref.x2_ref);
         return 0;
     }
     else
@@ -226,26 +227,25 @@ int one_test(double a, double b, double c, double* x1, double *x2, enum nRoots r
         {
             return 1;
         }
-        else if ((root == one_root || root == two_roots) && double_compare(*x1, x1ref) && double_compare(*x2, x2ref))
+        else if ((root == one_root || root == two_roots) && double_compare(*x1, Ref.x1_ref) && double_compare(*x2, Ref.x2_ref))
         {
             return 1;
         }
         else {
-            printf ("Failed: solver(%lg, %lg, %lg) gives:\n roots = %d, x1 = %lg, x2 = %lg \n should be:\n roots = %lg x1 = %lg, x2 = %lg\n", a, b, c, root, *x1, *x2, rootref, x1ref, x2ref);
+            printf ("Failed: solver(%lg, %lg, %lg) gives:\n roots = %d, x1 = %lg, x2 = %lg \n should be:\n roots = %lg x1 = %lg, x2 = %lg\n", Ref.a, Ref.b, Ref.c, root, *x1, *x2, rootref, Ref.x1_ref, Ref.x2_ref);
             return 0;
         }
     }
 }
 
-int unit_test(struct test_koefficients tests[], double* x1, double* x2)
+int unit_test(double* x1, double* x2)
 {
     int size_mas = sizeof(tests) / sizeof(tests[0]);
-    printf("%d %d", sizeof(tests), sizeof(tests[0]));
     int passed = 0;
     for (int i = 0; i < size_mas; i++)
     {
 
-       passed += one_test(tests[i].a, tests[i].b, tests[i].c, x1, x2, tests[i].roots, tests[i].x1_ref, tests[i].x2_ref);
+       passed += one_test(x1, x2, tests[i]);
     }
     return passed;
 }
