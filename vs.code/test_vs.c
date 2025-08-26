@@ -1,4 +1,4 @@
-//#include <TXLib.h>
+#include <TXLib.h>
 #include <stdio.h>
 #include <cmath>
 #include <cassert>
@@ -6,17 +6,19 @@
 #include "function_calls.h"
 
 //-------------------------------------------------------------
-
+//сделать файл
+//поделить на файлы
+//
 int main()
 {
     nRoots roots = none;
-    double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN;
-
+    double x1 = 0, x2 = 0;
+    test_file_reader(tests);
     unit_test(&x1, &x2);
-    //x1 = NAN; x2 = NAN; РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅРѕ
-    input_coef(&a, &b, &c);
 
-    roots = solver(a, b, c, &x1, &x2);
+    input_coef(&coef);
+
+    roots = solver(coef,  &x1, &x2);
 
     output_solution(&roots, x1, x2);
 
@@ -26,10 +28,13 @@ int main()
 //-------------------------------------------------------------
 
 int double_compare(double a, double b)
-{
-    const double eps = 1e-10;
-
-    return fabs(a-b) < eps;
+{   if (isnan(a) || isnan(b)) 
+        return 0;
+    else
+    {
+        const double eps = 1e-10;
+        return fabs(a-b) < eps;
+    }
 }
 
 
@@ -48,21 +53,55 @@ int root_is_zero(double *x1, double *x2)
     return 0;
 }
 
-
-nRoots square_solver(double a, double b, double c,
-           double *x1, double *x2)
+void test_file_reader(test_coefficients tests_coef[])
 {
-    double diskr = -1; /*РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋ Р·РЅР°С‡РµРЅРёРµ РґРёСЃРєСЂРёРјРёРЅР°РЅС‚Р°*/
-    diskr = b * b - 4 * a * c;
-
-    if (diskr < 0)
+    FILE * file_pointer = fopen("quare_tests.txt", "r");
+    if (file_pointer == NULL)
     {
-        return zero_roots;  /*Р”РµР№СЃС‚РІРёС‚РµР»СЊРЅС‹С… РєРѕСЂРЅРµР№ РЅРµС‚*/
+        printf("Something went wrong.");
+        exit(1);
+    }
+    else
+    {   
+        int i = 0;
+        //сделать чтобы считывалось 
+        while(read_file(file_pointer, &tests_coef[i])){
+            i++;
+        }
+
+    }
+    fclose(file_pointer);
+    //struct FILE *
+}
+
+int read_file(_iobuf* fp, test_coefficients* Ref)
+{
+    nRoots root = none; 
+    double testing[] = {NAN, NAN, NAN, NAN, NAN};
+    if (fscanf(fp, "%lg %lg %lg %d %lg %lg", &testing[0], &testing[1], &testing[2], (int*)&root, &testing[3], &testing[4]) == 6)
+    {
+        Ref->a = testing[0]; Ref->b = testing[1]; Ref->c = testing[2]; Ref->roots = root, Ref->x1_ref = testing[3], Ref->x2_ref = testing[4];
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }  
+}
+
+nRoots square_solver(coefficients coefs, 
+    double* x1, double* x2)
+{
+    double diskr = -1; /*Устанавливаю значение дискриминанта*/
+    diskr = coefs.b * coefs.b - 4 * coefs.a * coefs.c;
+        if (diskr < 0)
+        {
+            return zero_roots;  /*Действительных корней нет*/
     }
 
     else if (double_compare(diskr, 0))
     {
-        *x1 = -b / (2 * a);
+        *x1 = -coefs.b / (2 * coefs.a);
         *x2 = *x1;
 
         root_is_zero(x1, x2);
@@ -73,32 +112,33 @@ nRoots square_solver(double a, double b, double c,
     {
         double sqrt_d = sqrt(diskr);
 
-        *x1 = (-b - sqrt_d)/(2 * a);
-        *x2 = (-b + sqrt_d)/(2 * a);
+        *x1 = (-coefs.b - sqrt_d)/(2 * coefs.a);
+        *x2 = (-coefs.b + sqrt_d)/(2 * coefs.a);
 
         root_is_zero(x1, x2);
         return two_roots;
     }
+
 }
 
-nRoots linear_solver(double b, double c, double *x1, double *x2)
-{
-    if (double_compare(b, 0))
+nRoots linear_solver(coefficients coefs, double *x1, double *x2)
+{   
+    if (double_compare(coefs.b, 0))
         {
-            if (double_compare(c, 0))
+            if (double_compare(coefs.c, 0))
             {
-                return inf_roots; /*Р‘РµСЃРєРѕРЅРµРЅРѕ РјРЅРѕРіРѕ РєРѕСЂРЅРµР№*/
+                return inf_roots; /*Бесконено много корней*/
             }
 
             else
             {
-                return zero_roots; /*РљРѕСЂРЅРµР№ РЅРµС‚, РїРѕС‚РѕРјСѓ С‡С‚Рѕ РІС‹СЂР°Р¶РµРЅРёРµ РЅРµ Р·Р°РІРёСЃРёС‚ РѕС‚ x*/
+                return zero_roots; /*Корней нет, потому что выражение не зависит от x*/
             }
         }
 
         else
         {
-            *x1 = -c/b;
+            *x1 = -coefs.c/coefs.b;
             *x2 = *x1;
 
             root_is_zero(x1, x2);
@@ -106,15 +146,16 @@ nRoots linear_solver(double b, double c, double *x1, double *x2)
         }
 }
 
-void input_coef(double* a, double *b, double *c)
-{
+void input_coef(coefficients* coefs)
+{   
     printf("Enter the coefficients of the equations a, b, c\n");
 
-    while(scanf("%lg %lg %lg", a, b, c)!=3)  //РЎРѕР·РґР°С‚СЊ РѕС‚РґРµР»СЊРЅСѓСЋ С„СѓРЅРєС†РёСЋ РґР»СЏ РІРІРѕРґР°.
+    while(scanf("%lg %lg %lg", &coefs->a, &coefs->b, &coefs->c)!=3)
     {
         buffer_cleaner();
     }
 }
+
 void output_solution(nRoots* roots, double x1, double x2)
 {
     switch (*roots)
@@ -151,25 +192,29 @@ void output_solution(nRoots* roots, double x1, double x2)
     }
 }
 
-nRoots solver(double a, double b, double c,
-           double *x1, double *x2)
+nRoots solver(coefficients coefs, double *x1, double *x2)
 {
     nRoots roots;
 
-    if (double_compare(a, 0))
+    if (double_compare(coefs.a, 0))
     {
-        roots = linear_solver(b, c, x1, x2);
+        roots = linear_solver(coef, x1, x2);
     }
     else
     {
-        roots = square_solver(a, b, c, x1, x2);
+        roots = square_solver(coef, x1, x2);
+    }
+    if (*x1>*x2)
+    {
+        root_sort(x1, x2);
     }
     return roots;
 }
 
 int one_test(double* x1, double *x2, test_coefficients Ref)
-{
-    nRoots root = solver(Ref.a, Ref.b, Ref.c, x1, x2);
+{   
+    coef.a = Ref.a; coef.b = Ref.b; coef.c = Ref.c;
+    nRoots root = solver(coef, x1, x2);
     nRoots rootref = Ref.roots;
     if (root != rootref)
     {
@@ -183,7 +228,8 @@ int one_test(double* x1, double *x2, test_coefficients Ref)
             return 1;
         }
 
-        else if ((root == one_root || root == two_roots) && double_compare(*x1, Ref.x1_ref) && double_compare(*x2, Ref.x2_ref))
+        else if ((root == one_root || root == two_roots) && ((double_compare(*x1, Ref.x1_ref) && double_compare(*x2, Ref.x2_ref))  || 
+                 (double_compare(*x2, Ref.x1_ref) && double_compare(*x1, Ref.x2_ref))))
         {
             return 1;
         }
@@ -194,14 +240,15 @@ int one_test(double* x1, double *x2, test_coefficients Ref)
             return 0;
         }
     }
+    return 0;
 }
 
 int unit_test(double* x1, double* x2)
 {
-    int size_mas = sizeof(tests) / sizeof(tests[0]);
+    size_t size_mas = 50;
     int passed = 0;
-
-    for (int i = 0; i < size_mas; i++)
+    
+    for (size_t i = 0; i < size_mas; i++)
     {
        passed += one_test(x1, x2, tests[i]);
     }
@@ -213,4 +260,11 @@ void buffer_cleaner()
 {
     while(getchar() != '\n');
     printf("Please try again.\n");
+}
+
+void root_sort(double* x1, double* x2)
+{
+    *x1 += *x2;
+    *x2 = *x1 - *x2;
+    *x1 = *x1 - *x2;
 }
