@@ -1,6 +1,6 @@
 #ifndef CALLS
 #define CALLS
-
+#include <math.h>
 enum nRoots
 {
     zero_roots,
@@ -20,50 +20,53 @@ struct test_coefficients
     double x2_ref;
 };
 
-test_coefficients tests[] =
+test_coefficients tests[100 ] = //тут должна стоять константа
 {
-    {0,  0,  0,  inf_roots, NAN, NAN},
-    {1,  2,  1,   one_root,  -1,  -1},
-    {1,  3,  2,  two_roots,  -2,  -1},
-    {0,  1,  1,   one_root,  -1,  -1},
-    {1,  0, -4,  two_roots,  -2,   2},
-    {1,  5,  0,  two_roots,  -5,   0},
-    {1,  5,  6,  two_roots,  -3,  -2},
-    {1,  -5, 6,  two_roots,   2,   3},
-    {0,  0,  5, zero_roots, NAN, NAN},
-    {5,  0,  0,   one_root,   0,   0},
-    {0,  5,  0,   one_root,   0,   0}
+   {} 
 };
 
-struct parametrs
+struct coefficients
 {
-    double a;
-    double b;
-    double c;
+    double a ;
+    double b ;
+    double c ;
+};
+
+coefficients coef = {0, 0, 0};
+
+struct roots
+{
+    double x1 = NAN;
+    double x2 = NAN;
 };
 
 
+nRoots square_solver(coefficients coef,  double *x1, double *x2);
 
-nRoots square_solver(double a, double b, double c,
-           double x1, double x2);
+nRoots linear_solver(coefficients coef, double *x1, double *x2);
 
-nRoots linear_solver(double b, double c,
-            double x1, double x2);
+nRoots solver(coefficients coef,  double *x1, double *x2);
 
-nRoots solver(double a, double b, double c,
-           double x1, double x2);
 
-int root_is_zero(double x1, double x2);
+int root_is_zero(double *x1, double *x2);
 
 int double_compare(double a, double b);
 
-void input_coef(double a, double b, double c);
+
+void input_coef(coefficients* coef);
 
 void buffer_cleaner();
 
-int unit_test(double x1, doublex2);
+void output_solution(nRoots* roots, double x1, double x2);
 
-int one_test(double x1, double x2, test_coefficients Ref);
+int unit_test(double* x1, double*x2);
 
-void output_solution(nRoots roots, double x1, double x2);
+int one_test(double *x1, double *x2, test_coefficients Ref);
+
+void root_sort(double* x1, double* x2);
+
+void test_file_reader(test_coefficients tests[]);
+
+int read_file(_iobuf* fp, test_coefficients* Ref);
+
 #endif
