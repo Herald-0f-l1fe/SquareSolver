@@ -1,6 +1,11 @@
 #include <TXLib.h>
 #include <stdio.h>
 #include "Unit_tests.h"
+#include "Solver.h"
+#include "Supportive_func.h"
+#include "Structures.h"
+
+test_coefficients tests[max_test_size] = {{}};
 
 int unit_test(double* x1, double* x2)
 {

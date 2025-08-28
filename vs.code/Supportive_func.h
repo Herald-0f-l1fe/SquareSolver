@@ -1,40 +1,35 @@
-enum nRoots
-{
-    zero_roots,
-      one_root,
-     two_roots,
-     inf_roots,
-          none
-};
+/*!
+    \file
+    \brief Header for Supportive_func
+*/
 
-struct test_coefficients
-{
-    double a;
-    double b;
-    double c;
-    nRoots roots;
-    double x1_ref;
-    double x2_ref;
-};
-
-
-struct coefficients
-{
-    double a ;
-    double b ;
-    double c ;
-};
-
-struct roots
-{
-    double x1 = 0;
-    double x2 = 0;
-};
-
+#ifndef Supportive_func_h
+#define Supportive_func_h
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//! A function that sorts the roots of an equation in ascending order.
+//! @param [in] double* x1 (First root)
+//! @param [in] double* x2 (Second root)
+//! @return sorted roots of the equation.
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
 void root_sort(double* x1, double* x2);
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//! A function that checks whether the root of an equation is equal to zero.
+//! @param [in] x1 (First root)
+//! @param [in] x1 (Second root)
+//! @return The result of comparison 
 int root_is_zero(double *x1, double *x2);
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//! Function that compares 2 numbers
+//! @param [in] a (First number)
+//! @param [in] b (Second number)
+//! @return The result of comprasion
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
 int double_compare(double a, double b);
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//! Cleans Buffer
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
 void buffer_cleaner();
+#endif

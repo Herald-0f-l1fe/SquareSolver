@@ -3,6 +3,8 @@
 #include <TXLib.h>
 #include <math.h>
 #include "Solver.h" 
+#include "Supportive_func.h"
+
 nRoots square_solver(coefficients coefs, 
     double* x1, double* x2)
 {

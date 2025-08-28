@@ -1,8 +1,7 @@
-#ifndef SUPPPORT
-#define SUPPORT
 #include <TXLib.h>
 #include <stdio.h>
 #include "Supportive_func.h"
+#include "Structures.h"
 int double_compare(double a, double b)
 {   if (isnan(a) || isnan(b)) 
         return 0;
@@ -41,4 +40,3 @@ void buffer_cleaner()
     while(getchar() != '\n');
     printf("Please try again.\n");
 }
-#endif

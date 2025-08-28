@@ -3,12 +3,11 @@
 #include <cmath>
 #include <cassert>
 #include <float.h>
-#include "function_calls.h"
-
-//-------------------------------------------------------------
-//СЃРґРµР»Р°С‚СЊ С„Р°Р№Р»
-//РїРѕРґРµР»РёС‚СЊ РЅР° С„Р°Р№Р»С‹
-//
+#include "Structures.h"
+#include "Input_Output.h"
+#include "Solver.h"
+#include "Supportive_func.h"
+#include "Unit_tests.h"
 
 int main()
 {   
@@ -26,5 +25,3 @@ int main()
 
     return 0;
 }
-
-

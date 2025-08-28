@@ -1,0 +1,89 @@
+\doxysection{Unit\+\_\+tests.\+h File Reference}
+\hypertarget{_unit__tests_8h}{}\label{_unit__tests_8h}\index{Unit\_tests.h@{Unit\_tests.h}}
+
+
+Header for Unit tests.  
+
+
+{\ttfamily \#include "{}Structures.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_unit__tests_8h_a6dafdf4a48848aa424b29796b1e948e3}{test\+\_\+file\+\_\+reader}} (\mbox{\hyperlink{structtest__coefficients}{test\+\_\+coefficients}} tests\mbox{[}$\,$\mbox{]})
+\item 
+int \mbox{\hyperlink{_unit__tests_8h_abf7df016a3f02b37555204ca6cc8486c}{read\+\_\+file}} (\+\_\+iobuf \texorpdfstring{$\ast$}{*}fp, \mbox{\hyperlink{structtest__coefficients}{test\+\_\+coefficients}} \texorpdfstring{$\ast$}{*}Ref)
+\item 
+int \mbox{\hyperlink{_unit__tests_8h_ad47f309c92931c247ad40667bcb3a37a}{one\+\_\+test}} (double \texorpdfstring{$\ast$}{*}x1, double \texorpdfstring{$\ast$}{*}x2, \mbox{\hyperlink{structtest__coefficients}{test\+\_\+coefficients}} Ref)
+\item 
+int \mbox{\hyperlink{_unit__tests_8h_a5671f96e2843e2324c4b1bacb422b7d2}{unit\+\_\+test}} (double \texorpdfstring{$\ast$}{*}x1, double \texorpdfstring{$\ast$}{*}x2)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header for Unit tests. 
+
+
+
+\label{doc-func-members}
+\Hypertarget{_unit__tests_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{_unit__tests_8h_ad47f309c92931c247ad40667bcb3a37a}\index{Unit\_tests.h@{Unit\_tests.h}!one\_test@{one\_test}}
+\index{one\_test@{one\_test}!Unit\_tests.h@{Unit\_tests.h}}
+\doxysubsubsection{\texorpdfstring{one\_test()}{one\_test()}}
+{\footnotesize\ttfamily \label{_unit__tests_8h_ad47f309c92931c247ad40667bcb3a37a} 
+int one\+\_\+test (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}}]{x1}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{x2}{, }\item[{\mbox{\hyperlink{structtest__coefficients}{test\+\_\+coefficients}}}]{Ref}{}\end{DoxyParamCaption})}
+
+This function performs one test and returns if something goes wrong. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em double} & \texorpdfstring{$\ast$}{*}x1 (Point to the first root of the equation to change it.) \\
+\hline
+\mbox{\texttt{in}}  & {\em double\texorpdfstring{$\ast$}{*}} & x2 (Point to the second root of the equation to change it.) \\
+\hline
+\mbox{\texttt{in}}  & {\em \doxylink{structtest__coefficients}{test\+\_\+coefficients}} & Ref (Structure filled with reference values.) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Conditions under which the program behaves incorrectly. 
+\end{DoxyReturn}
+\Hypertarget{_unit__tests_8h_abf7df016a3f02b37555204ca6cc8486c}\index{Unit\_tests.h@{Unit\_tests.h}!read\_file@{read\_file}}
+\index{read\_file@{read\_file}!Unit\_tests.h@{Unit\_tests.h}}
+\doxysubsubsection{\texorpdfstring{read\_file()}{read\_file()}}
+{\footnotesize\ttfamily \label{_unit__tests_8h_abf7df016a3f02b37555204ca6cc8486c} 
+int read\+\_\+file (\begin{DoxyParamCaption}\item[{\+\_\+iobuf \texorpdfstring{$\ast$}{*}}]{fp}{, }\item[{\mbox{\hyperlink{structtest__coefficients}{test\+\_\+coefficients}} \texorpdfstring{$\ast$}{*}}]{Ref}{}\end{DoxyParamCaption})}
+
+This function reads a string and writes the data to a structure for testing. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em \+\_\+iobuf\texorpdfstring{$\ast$}{*}} & fp (Pointer to a location in a file) \\
+\hline
+\mbox{\texttt{in}}  & {\em test\+\_\+coefficients\texorpdfstring{$\ast$}{*}} & Ref (The structure into which the read test data is written.) \\
+\hline
+\mbox{\texttt{out}}  & {\em \doxylink{structtest__coefficients}{test\+\_\+coefficients}} & Ref (Structure filled with data for the test) \\
+\hline
+\end{DoxyParams}
+\Hypertarget{_unit__tests_8h_a6dafdf4a48848aa424b29796b1e948e3}\index{Unit\_tests.h@{Unit\_tests.h}!test\_file\_reader@{test\_file\_reader}}
+\index{test\_file\_reader@{test\_file\_reader}!Unit\_tests.h@{Unit\_tests.h}}
+\doxysubsubsection{\texorpdfstring{test\_file\_reader()}{test\_file\_reader()}}
+{\footnotesize\ttfamily \label{_unit__tests_8h_a6dafdf4a48848aa424b29796b1e948e3} 
+void test\+\_\+file\+\_\+reader (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtest__coefficients}{test\+\_\+coefficients}}}]{tests}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
+
+This function reads a file with tests. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em \doxylink{structtest__coefficients}{test\+\_\+coefficients}} & tests\mbox{[}\mbox{]} (array of structures into which data for tests will be entered.) \\
+\hline
+\end{DoxyParams}
+\Hypertarget{_unit__tests_8h_a5671f96e2843e2324c4b1bacb422b7d2}\index{Unit\_tests.h@{Unit\_tests.h}!unit\_test@{unit\_test}}
+\index{unit\_test@{unit\_test}!Unit\_tests.h@{Unit\_tests.h}}
+\doxysubsubsection{\texorpdfstring{unit\_test()}{unit\_test()}}
+{\footnotesize\ttfamily \label{_unit__tests_8h_a5671f96e2843e2324c4b1bacb422b7d2} 
+int unit\+\_\+test (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}}]{x1}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{x2}{}\end{DoxyParamCaption})}
+
+Function that checks all tests. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em double} & \texorpdfstring{$\ast$}{*}x1 (Point to the first root of the equation to change it.) \\
+\hline
+\mbox{\texttt{in}}  & {\em double\texorpdfstring{$\ast$}{*}} & x2 (Point to the second root of the equation to change it.) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of passed tests. 
+\end{DoxyReturn}

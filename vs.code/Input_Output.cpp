@@ -1,6 +1,9 @@
 #include <TXLib.h>
 #include <stdio.h>
 #include "Input_Output.h"
+#include "Supportive_func.h"
+#include "Structures.h"
+
 void input_coef(coefficients* coefs)
 {   
     printf("Enter the coefficients of the equations a, b, c\n");
@@ -10,7 +13,6 @@ void input_coef(coefficients* coefs)
         buffer_cleaner();
     }
 }
-
 void output_solution(nRoots* roots, double x1, double x2)
 {
     switch (*roots)
