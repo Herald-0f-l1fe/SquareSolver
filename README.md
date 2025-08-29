@@ -23,6 +23,5 @@ If you want to run the program, either do not enter anything except `.\Square_So
 The program returns the number of tests passed, if the program was tested, the number of roots and their value.
 
 # The most important thing
-This program works on Windows.
-
-I would like to express my gratitude to Aidan Munro for his mentorship.
+This program works on Windows
+I would like to express my gratitude to Aidan Munro and Dedu for their mentorship.
