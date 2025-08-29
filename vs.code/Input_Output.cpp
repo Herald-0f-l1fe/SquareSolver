@@ -3,10 +3,13 @@
 #include "Input_Output.h"
 #include "Supportive_func.h"
 #include "Structures.h"
+#include "Colors.h"
 
 void input_coef(coefficients* coefs)
 {   
-    printf("Enter the coefficients of the equations a, b, c\n");
+    printf(ANSI_COLOR_CYAN "Enter the coefficients of the equations " ANSI_COLOR_GREEN "a" ANSI_COLOR_RESET", " ANSI_COLOR_GREEN "b" ANSI_COLOR_RESET", " ANSI_COLOR_GREEN "c" ANSI_COLOR_RESET"\n");
+    printf(ANSI_COLOR_GREEN"a" ANSI_COLOR_RESET "x^2 + " ANSI_COLOR_GREEN "b" ANSI_COLOR_RESET 
+        "x + " ANSI_COLOR_GREEN"c" ANSI_COLOR_RESET" = 0\n");
 
     while(scanf("%lg %lg %lg", &coefs->a, &coefs->b, &coefs->c)!=3)
     {
@@ -19,26 +22,26 @@ void output_solution(nRoots* roots, double x1, double x2)
     {
 
         case  zero_roots:
-            printf("There are no valid roots.\n");
+            printf(ANSI_COLOR_RED"There are no valid roots.\n" ANSI_COLOR_RESET);
             printf("Thanks for using the program.\n");
             printf("GITHUB");
             break;
 
         case  one_root:
-            printf("There is only one root: x = %lg.\n", x1);
+            printf("There is only one root: " ANSI_COLOR_GREEN "x = %lg.\n" ANSI_COLOR_RESET, x1);
             printf("Thanks for using the program.\n");
             printf("GITHUB");
             break;
 
         case  two_roots:
-            printf("There are two roots: the first is x1 = %lg, the second is %lg.\n", x1, x2);
+            printf("There are two roots: the first is " ANSI_COLOR_GREEN "x1 = %lg" ANSI_COLOR_RESET ", the second is " ANSI_COLOR_GREEN "x2 = %lg.\n" ANSI_COLOR_RESET, x1, x2);
             printf("Thanks for using the program.\n");
             printf("GITHUB");
 
             break;
 
         case  inf_roots:
-            printf("This equation has infinitely many roots.\n");
+            printf(ANSI_COLOR_MAGENTA "This equation has infinitely many roots.\n" ANSI_COLOR_RESET);
             printf("Thanks for using the program.\n");
             printf("GITHUB");
             break;

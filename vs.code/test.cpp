@@ -4,17 +4,18 @@
 #include <cassert>
 #include <float.h>
 #include <unistd.h>
-#include <string.h>
 #include "Structures.h"
 #include "Input_Output.h"
 #include "Solver.h"
 #include "Supportive_func.h"
 #include "Unit_tests.h"
-//РѕР±СЂР°Р±РѕС‚РєР° arg_c arg_v С‡РµСЂРµР· С„Р»Р°РіРё -СЃ, -f, -h, -t. 
+#include "Begin_of_file.h"
+//РѕР±СЂР°Р±РѕС‚РєР° arg_c arg_v С‡РµСЂРµР· С„Р»Р°РіРё -s, -f, -h, -t. 
 int main(int argc, char* argv[])
 {    
     double x1 = 0, x2 = 0; 
-    //int rez = 0;
+    begin_of_file(argc, argv, &x1, &x2);
+    /*
     for (int i = 1; i < argc; i++)
     {
         if (strcmp(argv[i], "-help") == 0)
@@ -33,11 +34,15 @@ int main(int argc, char* argv[])
             char* file_n = "quare_tests.txt";
             unit_test(&x1, &x2, file_n);
         }
+        else if (strcmp(argv[i], "-start") == 0)
+        {
+            break;
+        }
         else 
         {
             printf("I don't know the meaning of this flag.");
         }
-    }
+    }*/
     /*while ((rez = getopt(argc, argv, "hsf:")) != -1)
     {
         switch (rez)
