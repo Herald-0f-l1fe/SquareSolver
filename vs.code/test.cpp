@@ -10,7 +10,8 @@
 #include "Supportive_func.h"
 #include "Unit_tests.h"
 #include "Begin_of_file.h"
-//РѕР±СЂР°Р±РѕС‚РєР° arg_c arg_v С‡РµСЂРµР· С„Р»Р°РіРё -s, -f, -h, -t. 
+//doxygen begin
+//
 int main(int argc, char* argv[])
 {    
     double x1 = 0, x2 = 0; 

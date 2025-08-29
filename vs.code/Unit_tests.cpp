@@ -18,7 +18,7 @@ int unit_test(double* x1, double* x2, char test_file[])
     {
        passed += one_test(x1, x2, tests[i]);
     }
-    printf("%d\n", passed);
+    printf("Passed tests:%d\n", passed);
     return passed;
 }
 

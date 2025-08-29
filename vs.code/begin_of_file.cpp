@@ -1,5 +1,3 @@
-#ifndef BEGIN_OF_FILE
-#define BEGIN_OF_FILE
 #include "Begin_of_file.h"
 #include "Unit_tests.h"
 
@@ -34,4 +32,3 @@ for (int i = 1; i < argc; i++)
         }
     }
 }
-#endif
