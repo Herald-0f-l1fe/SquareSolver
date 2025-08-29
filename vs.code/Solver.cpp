@@ -10,6 +10,9 @@ nRoots square_solver(coefficients coefs,
 {
     double diskr = -1;
     diskr = coefs.b * coefs.b - 4 * coefs.a * coefs.c;
+    assert(!isnan(coefs.a));
+    assert(!isnan(coefs.b));
+    assert(!isnan(coefs.c));
         if (diskr < 0)
         {
             return zero_roots;  /*Р”РµР№СЃС‚РІРёС‚РµР»СЊРЅС‹С… РєРѕСЂРЅРµР№ РЅРµС‚*/
@@ -17,6 +20,7 @@ nRoots square_solver(coefficients coefs,
 
     else if (double_compare(diskr, 0))
     {
+        assert(!double_compare(coefs.a, 0));
         *x1 = -coefs.b / (2 * coefs.a);
         *x2 = *x1;
 
@@ -26,6 +30,7 @@ nRoots square_solver(coefficients coefs,
 
     else
     {
+        assert(!double_compare(coefs.a, 0));
         double sqrt_d = sqrt(diskr);
 
         *x1 = (-coefs.b - sqrt_d)/(2 * coefs.a);
@@ -54,6 +59,7 @@ nRoots linear_solver(coefficients coefs, double *x1, double *x2)
 
         else
         {
+            assert(!double_compare(coefs.b, 0));
             *x1 = -coefs.c/coefs.b;
             *x2 = *x1;
 

@@ -11,7 +11,7 @@
 //! This function reads a file with tests.
 //! @param [in] test_coefficients tests[] (array of structures into which data for tests will be entered.)
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
-void test_file_reader(test_coefficients tests[]);
+void test_file_reader(test_coefficients tests[], char file_name[]);
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //! This function reads a string and writes the data to a structure for testing.
@@ -36,6 +36,6 @@ int one_test(double *x1, double *x2, test_coefficients Ref);
 //! @param [in] double* x2 (Point to the second root of the equation to change it.)
 //! @return Number of passed tests.
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
-int unit_test(double* x1, double*x2);
+int unit_test(double* x1, double*x2, char test_file[]);
 
 #endif

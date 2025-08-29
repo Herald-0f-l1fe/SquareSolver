@@ -40,3 +40,4 @@ void buffer_cleaner()
     while(getchar() != '\n');
     printf("Please try again.\n");
 }
+

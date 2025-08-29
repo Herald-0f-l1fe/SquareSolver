@@ -9,7 +9,7 @@ test.o: test.cpp
 	$(CC) $(CFLAGS) test.cpp
 
 Solver.o: Solver.cpp
-	$(CC) $(CFLAGS) Slover.cpp
+	$(CC) $(CFLAGS) Solver.cpp
 
 Input_Output.o: Input_Output.cpp
 	$(CC) $(CFLAGS) Input_Output.cpp

@@ -1,4 +1,5 @@
 #include <TXLib.h>
+#include <assert.h>
 #include <stdio.h>
 #include "Unit_tests.h"
 #include "Solver.h"
@@ -7,11 +8,11 @@
 
 test_coefficients tests[max_test_size] = {{}};
 
-int unit_test(double* x1, double* x2)
+int unit_test(double* x1, double* x2, char test_file[])
 {
     int size_mas = max_test_size;
     int passed = 0;
-    test_file_reader(tests);
+    test_file_reader(tests, test_file);
     
     for (int i = 0; i < size_mas; i++)
     {
@@ -54,12 +55,13 @@ int one_test(double* x1, double *x2, test_coefficients Ref)
     return 0;
 }
 
-void test_file_reader(test_coefficients tests_coef[])
-{
-    FILE * file_pointer = fopen("quare_tests.txt", "r");
+void test_file_reader(test_coefficients tests_coef[], char file_name[])
+{   
+    
+    FILE * file_pointer = fopen(file_name, "r");
     if (file_pointer == NULL)
     {
-        printf("Something went wrong.");
+        printf("Something went wrong. No Such file in directory.");
     }
     else
     {   
